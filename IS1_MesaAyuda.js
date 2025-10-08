@@ -353,7 +353,8 @@ app.post('/api/addCliente', (req, res) => {
 			hoy = dd + '/' + mm + '/' + yyyy;
 
 			const newCliente = {
-				id: contacto,
+				id: crypto.randomUUID(),
+				contacto: contacto,
 				nombre: nombre,
 				password: password,
 				activo: true,
@@ -370,19 +371,21 @@ app.post('/api/addCliente', (req, res) => {
 				ConditionExpression: 'attribute_not_exists(id)',
 			};
 
-			docClient.put(paramsPut, function (err, data) {
-				if (err) {
-					res
-						.status(400)
-						.send(
-							JSON.stringify({ response: 'ERROR', message: 'DB error' + err })
-						);
-				} else {
-					res
-						.status(200)
-						.send(JSON.stringify({ response: 'OK', cliente: newCliente }));
-				}
-			});
+			// Descomentar para enviar a la base de datos
+
+			// docClient.put(paramsPut, function (err, data) {
+			// 	if (err) {
+			// 		res
+			// 			.status(400)
+			// 			.send(
+			// 				JSON.stringify({ response: 'ERROR', message: 'DB error' + err })
+			// 			);
+			// 	} else {
+			// 		res
+			// 			.status(200)
+			// 			.send(JSON.stringify({ response: 'OK', cliente: newCliente }));
+			// 	}
+			// });
 		}
 	});
 });
