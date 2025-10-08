@@ -97,30 +97,88 @@ app.get('/api/cliente', (req, res) => {
   Esta API permite acceder a un cliente por ID y comparar la password pasada en un JSON en el cuerpo con la indicada en el DB
 */
 
-async function scanDb(contacto) {
-	var docClient = new AWS.DynamoDB.DocumentClient();
-	const scanKey = contacto;
-	const paramsScan = {
-		// ScanInput
-		TableName: 'cliente', // required
-		Select:
-			'ALL_ATTRIBUTES' ||
-			'ALL_PROJECTED_ATTRIBUTES' ||
-			'SPECIFIC_ATTRIBUTES' ||
-			'COUNT',
-		FilterExpression: 'contacto = :contacto',
-		ExpressionAttributeValues: { ':contacto': scanKey },
-	};
-	var objectPromise = await docClient
-		.scan(paramsScan)
-		.promise()
-		.then((data) => {
-			return data.Items;
-		});
-	return objectPromise;
-}
-
 app.post('/api/loginCliente', (req, res) => {
+	const { id } = req.body;
+	const { password } = req.body;
+
+	console.log('loginCliente: id(' + id + ') password (' + password + ')');
+
+	if (!password) {
+		res
+			.status(400)
+			.send({ response: 'ERROR', message: 'Password no informada' });
+		return;
+	}
+	if (!id) {
+		res.status(400).send({ response: 'ERROR', message: 'id no informado' });
+		return;
+	}
+
+	let getClienteByKey = function () {
+		var params = {
+			TableName: 'cliente',
+			Key: {
+				id: id,
+			},
+		};
+		docClient.get(params, function (err, data) {
+			if (err) {
+				res.status(400).send(
+					JSON.stringify({
+						response: 'ERROR',
+						message: 'DB access error ' + err,
+					})
+				);
+			} else {
+				if (Object.keys(data).length == 0) {
+					res
+						.status(400)
+						.send({ response: 'ERROR', message: 'Cliente invalido' });
+				} else {
+					const paswd = jsonParser('password', data.Item);
+					const activo = jsonParser('activo', data.Item);
+					const id = jsonParser('id', data.Item);
+					const contacto = jsonParser('contacto', data.Item);
+					if (password == paswd) {
+						if (activo == true) {
+							const nombre = jsonParser('nombre', data.Item);
+							const fecha_ultimo_ingreso = jsonParser(
+								'fecha_ultimo_ingreso',
+								data.Item
+							);
+							res.status(200).send(
+								JSON.stringify({
+									response: 'OK',
+									id: id,
+									nombre: nombre,
+									contacto: contacto,
+									fecha_ultimo_ingreso: fecha_ultimo_ingreso,
+								})
+							);
+						} else {
+							res.status(400).send(
+								JSON.stringify({
+									response: 'ERROR',
+									message: 'Cliente no activo',
+								})
+							);
+						}
+					} else {
+						res.status(400).send(
+							JSON.stringify({
+								response: 'ERROR',
+								message: 'usuario incorrecto',
+							})
+						);
+					}
+				}
+			}
+		});
+	};
+	getClienteByKey();
+});
+
+app.post('/api/loginClienteEmail', async (req, res) => {
 	const { contacto } = req.body;
 	const { password } = req.body;
 
@@ -139,102 +197,40 @@ app.post('/api/loginCliente', (req, res) => {
 		return;
 	}
 
-	let getClienteByKey = async function () {
-		// var params = {
-		// 	TableName: 'cliente',
-		// 	Key: {
-		// 		id: id,
-		// 	},
-		// };
-		const items = await scanDb(contacto);
-		const paswd = items[0].password;
-		if (items.length == 0) {
-			res.status(400).send(
-				JSON.stringify({
-					response: 'ERROR',
-					message: 'Cliente invalido',
-				})
-			);
-		} else if (password != paswd) {
-			res.status(400).send(
-				JSON.stringify({
-					response: 'ERROR',
-					message: 'Contraseña incorrecta',
-				})
-			);
-		} else if (items[0].activo != true) {
-			res.status(400).send(
-				JSON.stringify({
-					response: 'ERROR',
-					message: 'Cliente no activo',
-				})
-			);
-		} else {
-			const response = {
-				response: 'OK',
-				id: items[0].id,
-				nombre: items[0].nombre,
-				contacto: items[0].contacto,
-				fecha_ultimo_ingreso: items[0].fecha_ultimo_ingreso,
-			};
-			res.status(200).send(response);
-		}
-
-		// docClient.get(params, function (err, data) {
-		// 	if (err) {
-		// 		res.status(400).send(
-		// 			JSON.stringify({
-		// 				response: 'ERROR',
-		// 				message: 'DB access error ' + err,
-		// 			})
-		// 		);
-		// 	} else {
-		// 		if (Object.keys(data).length == 0) {
-		// 			res
-		// 				.status(400)
-		// 				.send({ response: 'ERROR', message: 'Cliente invalido' });
-		// 		} else {
-		// 			const paswd = jsonParser('password', data.Item);
-		// 			const activo = jsonParser('activo', data.Item);
-		// 			const id = jsonParser('id', data.Item);
-		// 			const contacto = jsonParser('contacto', data.Item);
-		// 			if (password == paswd) {
-		// 				if (activo == true) {
-		// 					const nombre = jsonParser('nombre', data.Item);
-		// 					const fecha_ultimo_ingreso = jsonParser(
-		// 						'fecha_ultimo_ingreso',
-		// 						data.Item
-		// 					);
-		// 					res.status(200).send(
-		// 						JSON.stringify({
-		// 							response: 'OK',
-		// 							id: id,
-		// 							nombre: nombre,
-		// 							contacto: contacto,
-		// 							fecha_ultimo_ingreso: fecha_ultimo_ingreso,
-		// 						})
-		// 					);
-		// 				} else {
-		// 					res.status(400).send(
-		// 						JSON.stringify({
-		// 							response: 'ERROR',
-		// 							message: 'Cliente no activo',
-		// 						})
-		// 					);
-		// 				}
-		// 			} else {
-		// 				res.status(400).send(
-		// 					JSON.stringify({
-		// 						response: 'ERROR',
-		// 						message: 'usuario incorrecto',
-		// 					})
-		// 				);
-		// 			}
-		// 		}
-		// 	}
-		// });
-	};
-	getClienteByKey();
+	const items = await scanDb(contacto);
+	const paswd = items[0].password;
+	if (items.length == 0) {
+		res.status(400).send(
+			JSON.stringify({
+				response: 'ERROR',
+				message: 'Cliente invalido',
+			})
+		);
+	} else if (password != paswd) {
+		res.status(400).send(
+			JSON.stringify({
+				response: 'ERROR',
+				message: 'Contraseña incorrecta',
+			})
+		);
+	} else if (items[0].activo != true) {
+		res.status(400).send(
+			JSON.stringify({
+				response: 'ERROR',
+				message: 'Cliente no activo',
+			})
+		);
+	} else {
+		console.log(items);
+		const response = {
+			response: 'OK',
+			id: items[0].id,
+			nombre: items[0].nombre,
+			contacto: items[0].contacto,
+			fecha_ultimo_ingreso: items[0].fecha_ultimo_ingreso,
+		};
+		res.status(200).send(response);
+	}
 });
 
 /*-----------
@@ -285,6 +281,29 @@ app.post('/api/getCliente/:id', (req, res) => {
 /*---------
 Función para realizar el SCAN de un DB de cliente usando contacto como clave para la búsqueda (no es clave formal del DB)
 */
+
+async function scanDb(contacto) {
+	var docClient = new AWS.DynamoDB.DocumentClient();
+	const scanKey = contacto;
+	const paramsScan = {
+		// ScanInput
+		TableName: 'cliente', // required
+		Select:
+			'ALL_ATTRIBUTES' ||
+			'ALL_PROJECTED_ATTRIBUTES' ||
+			'SPECIFIC_ATTRIBUTES' ||
+			'COUNT',
+		FilterExpression: 'contacto = :contacto',
+		ExpressionAttributeValues: { ':contacto': scanKey },
+	};
+	var objectPromise = await docClient
+		.scan(paramsScan)
+		.promise()
+		.then((data) => {
+			return data.Items;
+		});
+	return objectPromise;
+}
 
 /*----
 addCliente

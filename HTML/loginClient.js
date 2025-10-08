@@ -58,7 +58,7 @@ formE1.addEventListener('submit', (event) => {
 	};
 
 	const RESTAPI = {
-		loginCliente: 'http://localhost:8080/api/loginCliente',
+		loginCliente: 'http://localhost:8080/api/loginClienteEmail',
 		listarTicket: 'http://localhost:8080/api/listarTicket',
 	};
 
