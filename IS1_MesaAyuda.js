@@ -198,6 +198,7 @@ app.post('/api/loginClienteEmail', async (req, res) => {
 	}
 
 	const items = await scanDb(contacto);
+	console.log(items)
 	const paswd = items[0].password;
 	if (items.length == 0) {
 		res.status(400).send(
