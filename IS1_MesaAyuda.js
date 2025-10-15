@@ -385,19 +385,9 @@ app.post('/api/addCliente', (req, res) => {
 				Item: newCliente,
 				ConditionExpression: 'attribute_not_exists(id)',
 			};
-			// docClient.put(paramsPut, function (err, data) {
-			// 	if (err) {
-			// 		res
-			// 			.status(400)
-			// 			.send(
-			// 				JSON.stringify({ response: 'ERROR', message: 'DB error' + err })
-			// 			);
-			// 	} else {
-			// 		res
-			// 			.status(200)
-			// 			.send(JSON.stringify({ response: 'OK', cliente: newCliente }));
-			// 	}
-			// });
+
+			res.send(JSON.stringify({ response: 'OK', cliente: newCliente }));
+
 			// Descomentar para enviar a la base de datos
 
 			// docClient.put(paramsPut, function (err, data) {
