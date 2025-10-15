@@ -198,7 +198,7 @@ app.post('/api/loginClienteEmail', async (req, res) => {
 	}
 
 	const items = await scanDb(contacto);
-	console.log(items)
+	console.log(items);
 	const paswd = items[0].password;
 	if (items.length == 0) {
 		res.status(400).send(
@@ -210,7 +210,7 @@ app.post('/api/loginClienteEmail', async (req, res) => {
 	} else if (password != paswd) {
 		res.status(400).send(
 			JSON.stringify({
-				response: 'ERROR',
+				response: 'invalido',
 				message: 'Contraseña incorrecta',
 			})
 		);

@@ -9,7 +9,6 @@ formE1.addEventListener('submit', (event) => {
 	const formData = new FormData(formE1);
 	const data = Object.fromEntries(formData);
 	console.log('Application Server: Revisa el valor del form:');
-	console.log(data);
 
 	/*---
         Realiza validaciones en los datos del formulario antes de procesar
@@ -88,9 +87,9 @@ formE1.addEventListener('submit', (event) => {
 		};
 
 		console.log('API REST:' + RESTAPI.loginCliente);
-		console.log(login);
-		console.log('login(' + JSON.stringify(login) + ')');
-		console.log('options ' + JSON.stringify(options));
+		// console.log(login);
+		// console.log('login(' + JSON.stringify(login) + ')');
+		// console.log('options ' + JSON.stringify(options));
 		var API = RESTAPI.loginCliente;
 		var APIoptions = options;
 	}
