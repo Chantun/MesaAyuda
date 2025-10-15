@@ -80,6 +80,20 @@ function jsonParser(keyValue, stringValue) {
 	return objectValue[keyValue];
 }
 
+async function hashString(inputString) {
+	// funcion para hashear strings
+	const encoder = new TextEncoder();
+	const data = encoder.encode(inputString);
+	const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+
+	const hashArray = Array.from(new Uint8Array(hashBuffer));
+	const hashHex = hashArray
+		.map((byte) => byte.toString(16).padStart(2, '0'))
+		.join('');
+
+	return hashHex;
+}
+
 /*-------------------------------------------------------------------------------------------
                             SERVER API 
  *-------------------------------------------------------------------------------------------*/
@@ -197,9 +211,9 @@ app.post('/api/loginClienteEmail', async (req, res) => {
 		return;
 	}
 
-	const items = await scanDb(contacto);
+	const items = await scanDb(contacto); // Retorna un array con los datos del usuario
 	console.log(items);
-	const paswd = items[0].password;
+	const paswd = await hashString(items[0].password); // Hashea la contraseña de la db para compararla con la del loginClient
 	if (items.length == 0) {
 		res.status(400).send(
 			JSON.stringify({
@@ -371,7 +385,19 @@ app.post('/api/addCliente', (req, res) => {
 				Item: newCliente,
 				ConditionExpression: 'attribute_not_exists(id)',
 			};
-
+			// docClient.put(paramsPut, function (err, data) {
+			// 	if (err) {
+			// 		res
+			// 			.status(400)
+			// 			.send(
+			// 				JSON.stringify({ response: 'ERROR', message: 'DB error' + err })
+			// 			);
+			// 	} else {
+			// 		res
+			// 			.status(200)
+			// 			.send(JSON.stringify({ response: 'OK', cliente: newCliente }));
+			// 	}
+			// });
 			// Descomentar para enviar a la base de datos
 
 			// docClient.put(paramsPut, function (err, data) {

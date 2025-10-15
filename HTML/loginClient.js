@@ -1,14 +1,32 @@
 const formE1 = document.querySelector('.form');
 
+async function hashString(inputString) {
+	// Funcion para hashear strings
+	const encoder = new TextEncoder();
+	const data = encoder.encode(inputString);
+	const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+
+	const hashArray = Array.from(new Uint8Array(hashBuffer));
+	const hashHex = hashArray
+		.map((byte) => byte.toString(16).padStart(2, '0'))
+		.join('');
+
+	return hashHex;
+}
+
 /*---
     Intercepta el submit del formulario
     */
 
-formE1.addEventListener('submit', (event) => {
+formE1.addEventListener('submit', async (event) => {
 	event.preventDefault();
 	const formData = new FormData(formE1);
-	const data = Object.fromEntries(formData);
-	console.log('Application Server: Revisa el valor del form:');
+	const data = {
+		...Object.fromEntries(formData), // Copia el contenido del objeto fromData en data
+		password: await hashString(Object.fromEntries(formData).password), // Hashea la contraseña apenas llega del form
+	};
+	// console.log('Application Server: Revisa el valor del form:');
+	// console.log(data);
 
 	/*---
         Realiza validaciones en los datos del formulario antes de procesar
