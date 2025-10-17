@@ -19,7 +19,6 @@ formE1.addEventListener('submit', async (event) => {
 	}
 
 	if (data.contacto == 'pec') {
-		/*--Fix hecho por  Germán Lombardi IS1-2025 */
 		console.log('pec no es bienvenido en éste sistema');
 		const m = '<li>El usuario <pec> no es bienvenido en éste sistema</li>';
 		document.getElementById('resultado2').style.color = 'RED';
@@ -139,57 +138,17 @@ formE1.addEventListener('submit', async (event) => {
 			console.log('users.response=' + users.password);
 			if (users.response == 'OK') {
 				//<==Habilitar esto para dejar que el API REST verifique sin exponer la password
-				console.log('La password es correcta');
-				console.log(
-					'nombre(' +
-						users.nombre +
-						') fecha_ultimo_ingreso(' +
-						users.fecha_ultimo_ingreso +
-						')' +
-						'mode(' +
-						MODE +
-						')'
-				);
-				console.log(
-					'id=' +
-						users.id +
-						' nombre=' +
-						users.nombre +
-						' ultimo=' +
-						users.fecha_ultimo_ingreso
-				);
-				console.log(
-					'changing to ' +
-						systemURL.listarTicket +
-						'?id=' +
-						users.id +
-						'&contacto=' +
-						users.contacto +
-						'&nombre=' +
-						users.nombre +
-						'&fecha_ultimo_ingreso=' +
-						users.fecha_ultimo_ingreso +
-						'&mode=' +
-						MODE
-				);
-				window.location.href =
-					systemURL.listarTicket +
-					'?id=' +
-					users.id +
-					'&contacto=' +
-					users.contacto +
-					'&nombre=' +
-					users.nombre +
-					'&fecha_ultimo_ingreso=' +
-					users.fecha_ultimo_ingreso +
-					'&mode=' +
-					MODE;
+				console.log('La registración ha sido exitosa');
+				document.getElementById('resultado1').style.color = 'GREEN';
+				document.getElementById('resultado1').textContent = 'La registración ha sido exitosa'; 
+
+				// window.location.href = systemURL.loginCliente; //redireccionamiento del boton Registrar al loginCliente sin segundos
+				setTimeout(() => {window.location.href = systemURL.loginCliente;}, 2000); //redireccionamiento del boton Registrar al loginCliente con segundos
+
 			} else {
-				console.log('La password no es correcta');
-				document.getElementById('resultado1').style.color =
-					'RED'; /*--Fix hecho por  Germán Lombardi IS1-2025 */
-				document.getElementById('resultado1').textContent =
-					'Error de login, intente nuevamente'; /*--Fix hecho por  Germán Lombardi IS1-2025 */
+				console.log('La registración no se pudo completar');
+				document.getElementById('resultado1').style.color = 'RED';
+				document.getElementById('resultado1').textContent = 'La registración no se pudo completar';
 			}
 		});
 });

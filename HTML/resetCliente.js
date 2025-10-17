@@ -9,36 +9,23 @@ formE1.addEventListener('submit', async (event) => {
 	// console.log('Application Server: Revisa el valor del form:');
 	// console.log(data);
 
-	if (data.nombre == '' || data.contacto == '' || data.password == '') {
-		console.log('debe indicar usuario');
+	if (data.contacto == '' || data.password == '' || data.newPassword == '') {
+		console.log('Debe informar correo y contraseñas para completar el cambio');
 		document.getElementById('resultado1').style.color = 'RED';
 		document.getElementById('resultado1').style.textAlign = 'center';
 		document.getElementById('resultado1').textContent =
-			'Debe informar usuario y password para  completar el acceso';
+			'Debe informar correo y contraseñas para completar el cambio';
 		return;
 	}
 
-	if (data.contacto == 'pec') {
-		/*--Fix hecho por  Germán Lombardi IS1-2025 */
-		console.log('pec no es bienvenido en éste sistema');
-		const m = '<li>El usuario <pec> no es bienvenido en éste sistema</li>';
-		document.getElementById('resultado2').style.color = 'RED';
-		document.getElementById('resultado2').style.textAlign = 'center';
-		document.getElementById('resultado2').textContent =
-			'El usuario <pec> no es bienvenido en éste sistema';
+	if (data.password != data.newPassword) {
+		console.log('Las contraseñas no coinciden');
+		document.getElementById('resultado1').style.color = 'RED';
+		document.getElementById('resultado1').style.textAlign = 'center';
+		document.getElementById('resultado1').textContent =
+			'Las contraseñas no coinciden';
 		return;
 	}
-
-	if (data.termscondition != 'on') {
-		console.log('no aceptó los T&C no se puede loggear');
-		document.getElementById('resultado2').style.textAlign = 'center';
-		document.getElementById('resultado2').style.color = 'RED';
-		document.getElementById('resultado2').textContent =
-			'Debe aceptar los T&C para poder usar el sistema';
-		return;
-	}
-
-	// Exepcion cliente ya existente
 
 	/*---
         Genera objeto HTML a ser actualizado en el tag identificado como "app"
@@ -75,7 +62,6 @@ formE1.addEventListener('submit', async (event) => {
         */
 		const registrar = {
 			contacto: data.contacto,
-			nombre: data.nombre,
 			password: data.password,
 		};
 
@@ -140,58 +126,15 @@ formE1.addEventListener('submit', async (event) => {
 			);
 			console.log('users.response=' + users.password);
 			if (users.response == 'OK') {
-				//<==Habilitar esto para dejar que el API REST verifique sin exponer la password
-				console.log('La password es correcta');
-				console.log(
-					'nombre(' +
-						users.nombre +
-						') fecha_ultimo_ingreso(' +
-						users.fecha_ultimo_ingreso +
-						')' +
-						'mode(' +
-						MODE +
-						')'
-				);
-				console.log(
-					'id=' +
-						users.id +
-						' nombre=' +
-						users.nombre +
-						' ultimo=' +
-						users.fecha_ultimo_ingreso
-				);
-				console.log(
-					'changing to ' +
-						systemURL.listarTicket +
-						'?id=' +
-						users.id +
-						'&contacto=' +
-						users.contacto +
-						'&nombre=' +
-						users.nombre +
-						'&fecha_ultimo_ingreso=' +
-						users.fecha_ultimo_ingreso +
-						'&mode=' +
-						MODE
-				);
-				window.location.href =
-					systemURL.listarTicket +
-					'?id=' +
-					users.id +
-					'&contacto=' +
-					users.contacto +
-					'&nombre=' +
-					users.nombre +
-					'&fecha_ultimo_ingreso=' +
-					users.fecha_ultimo_ingreso +
-					'&mode=' +
-					MODE;
+				console.log('La password ha sido actualizada correctamente');
+				document.getElementById('resultado1').style.color = 'GREEN';
+				document.getElementById('resultado1').textContent = 'La password ha sido actualizada correctamente'; 
+
 			} else {
-				console.log('La password no es correcta');
-				document.getElementById('resultado1').style.color =
-					'RED'; /*--Fix hecho por  Germán Lombardi IS1-2025 */
-				document.getElementById('resultado1').textContent =
-					'Error de login, intente nuevamente'; /*--Fix hecho por  Germán Lombardi IS1-2025 */
+				console.log('La password no ha sido actualizada correctamente');
+				document.getElementById('resultado1').style.color = 'RED';
+				document.getElementById('resultado1').textContent = 'La password no ha sido actualizada correctamente'; 
 			}
 		});
+	window.location.href = systemURL.loginCliente; //redireccionamiento del boton confirmar al loginCliente
 });

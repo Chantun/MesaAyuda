@@ -20,7 +20,7 @@
             } 
             form {
                 width: 450px;
-                height: 250px;
+                height: 300px;
                 border: 1px solid black; 
             }
             input { 
@@ -53,10 +53,19 @@
         <br>
         <!-- <center><h4>Ingrese su identificación de usuario y password</h4></center> -->
         <table>
+
+            <tr style="height:10px;">
+                <td><label class="form-label">Correo del cliente</label></td>
+            </tr>
+
+            <tr>
+                <td><input class="txt" name="contacto" type="email" placeholder="Correo"><br></td>
+            </tr>
+
             <tr style="height:10px;">
                 <td><label for="passForm" class="form-label">Nueva contraseña</label></td>               
             </tr>
-            <tr style="height:10px;">    
+            <tr>    
                 <td><input class="txt" name="password" type="password" placeholder="Contraseña"><br></td>
             </tr>
 
@@ -65,7 +74,7 @@
                 <td><label for="passForm" class="form-label">Confirmar nueva contraseña</label></td>               
             </tr>
             <tr>    
-                <td><input class="txt" name="password" type="password" placeholder="Contraseña"><br></td>
+                <td><input class="txt" name="newPassword" type="password" placeholder="Contraseña"><br></td>
             </tr>
 
             <tr><td><span id="resultado1"></span></td></tr>
