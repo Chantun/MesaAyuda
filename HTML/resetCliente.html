@@ -19,7 +19,8 @@
               font-size: 18px; 
             } 
             form {
-                width: 500px;
+                width: 450px;
+                height: 250px;
                 border: 1px solid black; 
             }
             input { 
@@ -31,7 +32,7 @@
             }     
             .txt {
                 display: inline-block;
-                  width: 80%;
+                  width: 360px;
                   outline: none;
                 margin:0;
             }
@@ -43,7 +44,7 @@
     <center><img src="HelpDeskGirl.png" alt="Nuestra imagen corporativa" style="width:200px;height:150px;"></center>
     <center>
         <h1>Sistema de Mesa de Ayuda</h1>
-        <h2>Registar usuario</h2>
+        <h2>Cambio de Contraseña</h2>
     </center>
 
     <!-- Formulario para enviar los datos -->    
@@ -53,33 +54,28 @@
         <!-- <center><h4>Ingrese su identificación de usuario y password</h4></center> -->
         <table>
             <tr style="height:10px;">
-                <td><label for="cliForm" class="form-label">Ingrese su correo electrónico:</label></td>               
+                <td><label for="passForm" class="form-label">Nueva contraseña</label></td>               
             </tr>
             <tr style="height:10px;">    
-                <td><input class="txt" name="contacto" type="text" placeholder="Correo electrónico"><br></td>
+                <td><input class="txt" name="password" type="password" placeholder="Contraseña"><br></td>
             </tr>
+
             <tr><td>&nbsp;</td></tr>
             <tr style="height:10px;">
-                <td><label for="passForm" class="form-label">Ingrese su contraseña</label></td>               
+                <td><label for="passForm" class="form-label">Confirmar nueva contraseña</label></td>               
             </tr>
             <tr>    
                 <td><input class="txt" name="password" type="password" placeholder="Contraseña"><br></td>
             </tr>
-            <tr style="height:10px;">
-            <tr><td>&nbsp;</td></tr>
-                <td><label for="passForm" class="form-label">Ingrese su nombre</label></td>               
-            </tr>
-            <tr>    
-                <td><input class="txt" name="nombre" type="text" placeholder="Ingrese su nombre"><br></td>
-            </tr>
+
             <tr><td><span id="resultado1"></span></td></tr>
             <tr><td><br></td></tr>
-            <tr><td><br><input name="termscondition" type="checkbox"> Acepto los términos y condiciones del registro en el sistema (S.E.u.O)</p></br></td></tr>
+            <!-- <tr><td><br><input name="termscondition" type="checkbox"> Acepto los términos y condiciones del registro en el sistema (S.E.u.O)</p></br></td></tr> -->
             <tr><td><span id="resultado2"></span></td></tr>
 
         </table>
         
-        <button type="submit">< Registrar</button>
+        <button type="submit">< Confirmar</button>
         
         
     <p> </p>
@@ -93,7 +89,6 @@
     <ul id="listado"></ul>
     
     <!-- Script a ser ejecutado --> 
-    <script src="addCliente.js" type="module"></script>
+    <script src="resetCliente.js" type="module"></script>
     
-
 </body>
