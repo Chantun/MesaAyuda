@@ -11,29 +11,16 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <link rel="stylesheet" href="styles.css">
         <title>POST Form Data as JSON with JavaScript Fetch API</title>
 
-        <style type="text/css"> 
-  
+        <style type="text/css">
             label { 
               font-size: 18px; 
-            } 
-            form {
-                width: 500px;
-                border: 1px solid black; 
             }
             input { 
               margin: 7px; 
               padding: 2px 
-            } 
-            .form-label{
-                margin-bottom:0!important;
-            }     
-            .txt {
-                display: inline-block;
-                  width: 80%;
-                  outline: none;
-                margin:0;
             }
         </style> 
     </head>
@@ -48,43 +35,59 @@
 
     <!-- Formulario para enviar los datos -->    
     <center>
-    <form class="form" method="GET" style="background-color:#d8f7cf" width="100px" border="1">
+    <form class="form" method="GET" width="100px" border="1">
         <br>
         <!-- <center><h4>Ingrese su identificación de usuario y password</h4></center> -->
         <table>
             <tr style="height:10px;">
-                <td><label for="cliForm" class="form-label">E-Mail</label></td>               
+                <center>
+                    <td><label for="cliForm" class="form-label">E-Mail</label></td>   
+                </center>           
             </tr>
             <tr style="height:10px;">    
-                <td><input class="txt" name="contacto" type="text" placeholder="example@email.com"><br></td>
+                <td>
+                    <center>
+                    <input class="txt" name="contacto" type="text" placeholder="example@email.com">
+                    </center>
+                    <br>
+                </td>
             </tr>
-            <tr><td>&nbsp;</td></tr>
             <tr style="height:10px;">
                 <td><label for="passForm" class="form-label">Contraseña</label></td>               
             </tr>
             <tr>    
-                <td><input class="txt" name="password" type="password" placeholder="Contraseña"><br></td>
+                <td>                 
+                    <center>
+                    <input class="txt" name="password" type="password" placeholder="Contraseña">
+                    <center>
+                    <br>
+                </td>
             </tr>
-            <tr><td><span id="resultado1"></span></td></tr>
-            <tr><td><br></td></tr>
+            <tr><td><span id="resultado1"></span></td><br></tr>
             <tr>
                 <td><center><a href="http://127.0.0.1:5500/HTML/resetCliente.html">¿Olvidaste tu contraseña?</a></center><br></td>
 
             </tr>
 
             <tr>
-                <td><center><button type="submit">< Ingresar</button></center><br></td>
+                <td><center><button type="submit">< Ingresar</button></center><br>
+                </td>
             </tr>
-
             <tr>
-                <td><center><span>¿No tienes una cuenta? </span><a href="http://127.0.0.1:5500/HTML/addCliente.html">Registrate</a></center></td>
+                <td><center><span>¿No tienes una cuenta? </span><a href="http://127.0.0.1:5500/HTML/addCliente.html">Registrate</a></center></td> 
             </tr>
-            <tr><td><br><input name="termscondition" type="checkbox"> Acepto los términos y condiciones del ingreso al sistema (S.E.u.O)</p></br></td></tr>
+            <tr>
+                <td>
+                    <center>
+                    <br> 
+                    <input name="termscondition" type="checkbox">
+                    <span>Acepto los términos y condiciones del ingreso al sistema (S.E.u.O)</span>
+                    </center>
+                </td>
+            </tr>
             <tr><td><span id="resultado2"></span></td></tr>
-
         </table>
         
-    <p> </p>
     </form>
     <p>¡Todo lo que Ud. diga o haga en éste sistema podrá ser usado en su contra!</p>
     </center>

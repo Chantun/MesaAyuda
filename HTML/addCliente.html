@@ -11,30 +11,19 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <link rel="stylesheet" href="styles.css">
         <title>POST Form Data as JSON with JavaScript Fetch API</title>
 
         <style type="text/css"> 
   
             label { 
-              font-size: 18px; 
-            } 
-            form {
-                width: 500px;
-                border: 1px solid black; 
+              font-size: 18px;
             }
             input { 
               margin: 7px; 
               padding: 2px 
-            } 
-            .form-label{
-                margin-bottom:0!important;
-            }     
-            .txt {
-                display: inline-block;
-                  width: 80%;
-                  outline: none;
-                margin:0;
             }
+
         </style> 
     </head>
 <body>
@@ -48,41 +37,76 @@
 
     <!-- Formulario para enviar los datos -->    
     <center>
-    <form class="form" method="GET" style="background-color:#d8f7cf" width="100px" border="1">
+    <form class="form" method="GET" width="100px" border="1">
+    <!-- <center><h4>Ingrese su identificación de usuario y password</h4></center> -->
         <br>
-        <!-- <center><h4>Ingrese su identificación de usuario y password</h4></center> -->
         <table>
             <tr style="height:10px;">
-                <td><label for="cliForm" class="form-label">Ingrese su correo electrónico:</label></td>               
-            </tr>
-            <tr style="height:10px;">    
-                <td><input class="txt" name="contacto" type="text" placeholder="Correo electrónico"><br></td>
-            </tr>
-            <tr><td>&nbsp;</td></tr>
-            <tr style="height:10px;">
-                <td><label for="passForm" class="form-label">Ingrese su contraseña</label></td>               
-            </tr>
-            <tr>    
-                <td><input class="txt" name="password" type="password" placeholder="Contraseña"><br></td>
+                <td>
+                    <label for="cliForm" class="form-label">Ingrese su correo electrónico:</label>
+                </td> 
             </tr>
             <tr style="height:10px;">
-            <tr><td>&nbsp;</td></tr>
-                <td><label for="passForm" class="form-label">Ingrese su nombre</label></td>               
+                <td>
+                    <center>
+                    <input class="txt" name="contacto" type="text" placeholder="Correo electrónico">
+                    </center>
+                    <br>
+                </td>
+            </tr>
+            <tr style="height:10px;">
+                <td>
+                    <label for="passForm" class="form-label">Ingrese su contraseña</label>
+                </td>  
+            </tr>
+            <tr>   
+                <td>
+                    <center>
+                    <input class="txt" name="password" type="password" placeholder="Contraseña">
+                    </center>
+                    <br>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="passForm" class="form-label">Ingrese su nombre</label>
+                </td>        
             </tr>
             <tr>    
-                <td><input class="txt" name="nombre" type="text" placeholder="Ingrese su nombre"><br></td>
+                <td>
+                    <center>
+                    <input class="txt" name="nombre" type="text" placeholder="Ingrese su nombre">
+                    </center>
+                    <br>
+                </td>
             </tr>
-            <tr><td><span id="resultado1"></span></td></tr>
-            <tr><td><br></td></tr>
-            <tr><td><br><input name="termscondition" type="checkbox"> Acepto los términos y condiciones del registro en el sistema (S.E.u.O)</p></br></td></tr>
-            <tr><td><span id="resultado2"></span></td></tr>
-
+            <tr>
+                <td>
+                    <span id="resultado1"></span>
+                </td>
+            </tr>
+            
+            <tr>
+                <td>
+                    <center>
+                        <button type="submit">< Registrar</button><br>
+                    </center>
+                    <br>
+                </td>
+            </tr>
+            <tr>
+                <td class="terms">
+                    <input name="termscondition" type="checkbox">
+                    <span>Acepto los términos y condiciones del registro en el sistema (S.E.u.O)</span>
+                    
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span id="resultado2"></span>
+                </td>
+            </tr>
         </table>
-        
-        <button type="submit">< Registrar</button>
-        
-        
-    <p> </p>
     </form>
     <p>¡Todo lo que Ud. diga o haga en éste sistema podrá ser usado en su contra!</p>
     </center>

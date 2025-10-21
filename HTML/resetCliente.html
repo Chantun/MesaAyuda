@@ -11,30 +11,17 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <link rel="stylesheet" href="styles.css">
         <title>POST Form Data as JSON with JavaScript Fetch API</title>
 
         <style type="text/css"> 
   
             label { 
               font-size: 18px; 
-            } 
-            form {
-                width: 450px;
-                height: 300px;
-                border: 1px solid black; 
             }
             input { 
               margin: 7px; 
               padding: 2px 
-            } 
-            .form-label{
-                margin-bottom:0!important;
-            }     
-            .txt {
-                display: inline-block;
-                  width: 360px;
-                  outline: none;
-                margin:0;
             }
         </style> 
     </head>
@@ -49,13 +36,15 @@
 
     <!-- Formulario para enviar los datos -->    
     <center>
-    <form class="form" method="GET" style="background-color:#d8f7cf" width="100px" border="1">
+    <form class="form" method="GET" width="100px" border="1">
         <br>
         <!-- <center><h4>Ingrese su identificación de usuario y password</h4></center> -->
         <table>
 
             <tr style="height:10px;">
-                <td><label class="form-label">Correo del cliente</label></td>
+                <td>
+                    <label class="form-label" style="margin-left: 0">Correo del cliente</label>
+                </td>
             </tr>
 
             <tr>
@@ -63,15 +52,13 @@
             </tr>
 
             <tr style="height:10px;">
-                <td><label for="passForm" class="form-label">Nueva contraseña</label></td>               
+                <td><label for="passForm" class="form-label" style="margin-left: 0">Nueva contraseña</label></td>               
             </tr>
             <tr>    
                 <td><input class="txt" name="password" type="password" placeholder="Contraseña"><br></td>
             </tr>
-
-            <tr><td>&nbsp;</td></tr>
             <tr style="height:10px;">
-                <td><label for="passForm" class="form-label">Confirmar nueva contraseña</label></td>               
+                <td><label for="passForm" class="form-label" style="margin-left: 0">Confirmar nueva contraseña</label></td>               
             </tr>
             <tr>    
                 <td><input class="txt" name="newPassword" type="password" placeholder="Contraseña"><br></td>
