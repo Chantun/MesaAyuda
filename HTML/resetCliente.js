@@ -40,14 +40,14 @@ formE1.addEventListener('submit', async (event) => {
 		listarTicket: 'http://127.0.0.1:5500/HTML/listarTicket.html',
 		loginCliente: 'http://127.0.0.1:5500/HTML/loginClient.html',
 		addCliente: 'http://127.0.0.1:5500/HTML/addCliente.html',
-        resetCliente: 'http://127.0.0.1:5500/HTML/resetCliente.html',
+		resetCliente: 'http://127.0.0.1:5500/HTML/resetCliente.html',
 	};
 
 	const RESTAPI = {
 		loginCliente: 'http://localhost:8080/api/loginClienteEmail',
 		listarTicket: 'http://localhost:8080/api/listarTicket',
 		addCliente: 'http://localhost:8080/api/addCliente',
-        resetCliente: 'http://localhost:8080/api/resetCliente',
+		resetCliente: 'http://localhost:8080/api/resetCliente',
 	};
 
 	/*-----
@@ -128,13 +128,23 @@ formE1.addEventListener('submit', async (event) => {
 			if (users.response == 'OK') {
 				console.log('La password ha sido actualizada correctamente');
 				document.getElementById('resultado1').style.color = 'GREEN';
-				document.getElementById('resultado1').textContent = 'La password ha sido actualizada correctamente'; 
-
-			} else {
+				document.getElementById('resultado1').textContent =
+					'La password ha sido actualizada correctamente';
+				setTimeout(() => {
+					window.location.href = systemURL.loginCliente;
+				}, 2000);
+			} else if (users.message == 'Usuario inexistente') {
 				console.log('La password no ha sido actualizada correctamente');
 				document.getElementById('resultado1').style.color = 'RED';
-				document.getElementById('resultado1').textContent = 'La password no ha sido actualizada correctamente'; 
+				document.getElementById('resultado1').textContent =
+					'Usuario inexistente';
+			} else {
+				console.log(users);
+				console.log('La password no ha sido actualizada correctamente');
+				document.getElementById('resultado1').style.color = 'RED';
+				document.getElementById('resultado1').textContent =
+					'La password no ha sido actualizada correctamente';
 			}
 		});
-	window.location.href = systemURL.loginCliente; //redireccionamiento del boton confirmar al loginCliente
+	// window.location.href = systemURL.loginCliente; //redireccionamiento del boton confirmar al loginCliente
 });

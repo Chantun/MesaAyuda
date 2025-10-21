@@ -212,8 +212,6 @@ app.post('/api/loginClienteEmail', async (req, res) => {
 	}
 
 	const items = await scanDb(contacto); // Retorna un array con los datos del usuario
-	console.log(items);
-	const paswd = await hashString(items[0].password); // Hashea la contraseña de la db para compararla con la del loginClient
 	if (items.length == 0) {
 		res.status(400).send(
 			JSON.stringify({
@@ -221,7 +219,9 @@ app.post('/api/loginClienteEmail', async (req, res) => {
 				message: 'Cliente invalido',
 			})
 		);
-	} else if (password != paswd) {
+	}
+	const paswd = await hashString(items[0].password); // Hashea la contraseña de la db para compararla con la del loginClient
+	if (password != paswd) {
 		res.status(400).send(
 			JSON.stringify({
 				response: 'invalido',
@@ -386,23 +386,23 @@ app.post('/api/addCliente', (req, res) => {
 				ConditionExpression: 'attribute_not_exists(id)',
 			};
 
-			res.send(JSON.stringify({ response: 'OK', cliente: newCliente }));
+			// res.send(JSON.stringify({ response: 'OK', cliente: newCliente }));
 
 			// Descomentar para enviar a la base de datos
 
-			// docClient.put(paramsPut, function (err, data) {
-			// 	if (err) {
-			// 		res
-			// 			.status(400)
-			// 			.send(
-			// 				JSON.stringify({ response: 'ERROR', message: 'DB error' + err })
-			// 			);
-			// 	} else {
-			// 		res
-			// 			.status(200)
-			// 			.send(JSON.stringify({ response: 'OK', cliente: newCliente }));
-			// 	}
-			// });
+			docClient.put(paramsPut, function (err, data) {
+				if (err) {
+					res
+						.status(400)
+						.send(
+							JSON.stringify({ response: 'ERROR', message: 'DB error' + err })
+						);
+				} else {
+					res
+						.status(200)
+						.send(JSON.stringify({ response: 'OK', cliente: newCliente }));
+				}
+			});
 		}
 	});
 });
@@ -524,12 +524,12 @@ app.post('/api/updateCliente', (req, res) => {
 /api/resetCliente
 Permite cambiar la password de un cliente
 */
-app.post('/api/resetCliente', (req, res) => {
-	const { id } = req.body;
+app.post('/api/resetCliente', async (req, res) => {
+	const { contacto } = req.body;
 	const { password } = req.body;
 
-	if (!id) {
-		res.status(400).send({ response: 'ERROR', message: 'Id no informada' });
+	if (!contacto) {
+		res.status(400).send({ response: 'ERROR', message: 'Correo no informado' });
 		return;
 	}
 
@@ -539,6 +539,15 @@ app.post('/api/resetCliente', (req, res) => {
 			.send({ response: 'ERROR', message: 'Password no informada' });
 		return;
 	}
+
+	const user = await scanDb(contacto);
+	user.length == 0
+		? res.status(404).send({
+				response: 'ERROR',
+				message: 'Usuario inexistente',
+		  })
+		: undefined;
+	const id = user[0].id;
 
 	var params = {
 		TableName: 'cliente',

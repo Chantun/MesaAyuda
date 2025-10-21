@@ -14,7 +14,7 @@ formE1.addEventListener('submit', async (event) => {
 		document.getElementById('resultado1').style.color = 'RED';
 		document.getElementById('resultado1').style.textAlign = 'center';
 		document.getElementById('resultado1').textContent =
-			'Debe informar usuario y password para  completar el acceso';
+			'Debe informar usuario, nombre y password para completar el acceso';
 		return;
 	}
 
@@ -140,15 +140,24 @@ formE1.addEventListener('submit', async (event) => {
 				//<==Habilitar esto para dejar que el API REST verifique sin exponer la password
 				console.log('La registración ha sido exitosa');
 				document.getElementById('resultado1').style.color = 'GREEN';
-				document.getElementById('resultado1').textContent = 'La registración ha sido exitosa'; 
+				document.getElementById('resultado1').textContent =
+					'La registración ha sido exitosa';
 
 				// window.location.href = systemURL.loginCliente; //redireccionamiento del boton Registrar al loginCliente sin segundos
-				setTimeout(() => {window.location.href = systemURL.loginCliente;}, 2000); //redireccionamiento del boton Registrar al loginCliente con segundos
-
-			} else {
+				setTimeout(() => {
+					window.location.href = systemURL.loginCliente;
+				}, 2000); //redireccionamiento del boton Registrar al loginCliente con segundos
+			} else if (users.message == 'Cliente ya existe') {
 				console.log('La registración no se pudo completar');
 				document.getElementById('resultado1').style.color = 'RED';
-				document.getElementById('resultado1').textContent = 'La registración no se pudo completar';
+				document.getElementById('resultado1').textContent =
+					'El correo ya esta en uso';
+			} else {
+				console.log(users);
+				console.log('La registración no se pudo completar');
+				document.getElementById('resultado1').style.color = 'RED';
+				document.getElementById('resultado1').textContent =
+					'La registración no se pudo completar';
 			}
 		});
 });
