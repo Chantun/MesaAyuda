@@ -139,3 +139,10 @@ button:active {
 .form-label {
 	margin-left: 44px;
 }
+
+.dissable,
+.dissable:hover,
+.dissable:active {
+	color: #aaa;
+	cursor: default;
+}

@@ -190,6 +190,14 @@ formE1.addEventListener('submit', async (event) => {
 					users.fecha_ultimo_ingreso +
 					'&mode=' +
 					MODE;
+			} else if (users.message == 'Cliente invalido') {
+				const register = document.getElementById('register');
+				register.classList.remove('dissable');
+				register.setAttribute(
+					'href',
+					'http://127.0.0.1:5500/HTML/addCliente.html'
+				);
+				console.log('Cliente invalido');
 			} else {
 				console.log('La password no es correcta');
 				document.getElementById('resultado1').style.color =
