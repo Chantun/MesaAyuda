@@ -80,20 +80,6 @@ function jsonParser(keyValue, stringValue) {
 	return objectValue[keyValue];
 }
 
-async function hashString(inputString) {
-	// funcion para hashear strings
-	const encoder = new TextEncoder();
-	const data = encoder.encode(inputString);
-	const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-
-	const hashArray = Array.from(new Uint8Array(hashBuffer));
-	const hashHex = hashArray
-		.map((byte) => byte.toString(16).padStart(2, '0'))
-		.join('');
-
-	return hashHex;
-}
-
 /*-------------------------------------------------------------------------------------------
                             SERVER API 
  *-------------------------------------------------------------------------------------------*/
@@ -220,7 +206,8 @@ app.post('/api/loginClienteEmail', async (req, res) => {
 			})
 		);
 	}
-	const paswd = await hashString(items[0].password); // Hashea la contraseña de la db para compararla con la del loginClient
+	console.log(items[0]);
+	const paswd = items[0].password;
 	if (password != paswd) {
 		res.status(400).send(
 			JSON.stringify({

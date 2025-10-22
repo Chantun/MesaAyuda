@@ -79,6 +79,10 @@ a {
 	color: #2448c0;
 }
 
+a:hover {
+	color: #6488f0;
+}
+
 .txt {
 	font-size: 1rem;
 	background-color: #fbf3d1;
@@ -107,7 +111,6 @@ a {
 
 button {
 	min-width: 50px;
-	/* height: 30px; */
 	padding: 9px;
 	font-size: 1rem;
 	font-weight: 600;
@@ -117,6 +120,7 @@ button {
 	border-radius: 7px;
 	box-shadow: 3px 3px 8px #0008;
 	white-space: nowrap;
+	cursor: pointer;
 }
 
 button:hover {

@@ -121,10 +121,10 @@ formE1.addEventListener('submit', async (event) => {
 			return res.json();
 		})
 		.then((users) => {
-			console.log(
-				'Datos en respuesta del application server=' + JSON.stringify(users)
-			);
-			console.log('users.response=' + users.password);
+			// console.log(
+			// 	'Datos en respuesta del application server=' + JSON.stringify(users)
+			// );
+			// console.log('users.response=' + users.password);
 			if (users.response == 'OK') {
 				console.log('La password ha sido actualizada correctamente');
 				document.getElementById('resultado1').style.color = 'GREEN';
@@ -139,7 +139,7 @@ formE1.addEventListener('submit', async (event) => {
 				document.getElementById('resultado1').textContent =
 					'Usuario inexistente';
 			} else {
-				console.log(users);
+				// console.log(users);
 				console.log('La password no ha sido actualizada correctamente');
 				document.getElementById('resultado1').style.color = 'RED';
 				document.getElementById('resultado1').textContent =
