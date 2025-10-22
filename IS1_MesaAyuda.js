@@ -178,6 +178,41 @@ app.post('/api/loginCliente', (req, res) => {
 	getClienteByKey();
 });
 
+function updateDate(id, date) {
+	let hoy = new Date();
+	const dd = String(hoy.getDate()).padStart(2, '0');
+	const mm = String(hoy.getMonth() + 1).padStart(2, '0'); //January is 0!
+	const yyyy = hoy.getFullYear();
+	hoy = dd + '/' + mm + '/' + yyyy;
+
+	const paramsUpdate = {
+		ExpressionAttributeNames: {
+			'#f': date,
+		},
+		ExpressionAttributeValues: {
+			':f': hoy,
+		},
+		Key: {
+			id: id,
+		},
+		ReturnValues: 'ALL_NEW',
+		TableName: 'cliente',
+		UpdateExpression: 'SET #f = :f',
+	};
+	docClient.update(paramsUpdate, function (err, data) {
+		if (err) {
+			console.error('DB access error ' + err);
+			return;
+		} else {
+			console.log({
+				response: 'OK',
+				message: 'updated',
+				data: data,
+			});
+		}
+	});
+}
+
 app.post('/api/loginClienteEmail', async (req, res) => {
 	const { contacto } = req.body;
 	const { password } = req.body;
@@ -190,6 +225,7 @@ app.post('/api/loginClienteEmail', async (req, res) => {
 			.send({ response: 'ERROR', message: 'Password no informada' });
 		return;
 	}
+
 	if (!contacto) {
 		res
 			.status(400)
@@ -224,6 +260,7 @@ app.post('/api/loginClienteEmail', async (req, res) => {
 		);
 	} else {
 		console.log(items);
+		updateDate(items[0].id, 'fecha_ultimo_ingreso');
 		const response = {
 			response: 'OK',
 			id: items[0].id,
@@ -397,6 +434,7 @@ app.post('/api/addCliente', (req, res) => {
 /api/updateCliente
 Permite actualizar datos del cliente contacto, nombre, estado de activo y registrado
 */
+
 app.post('/api/updateCliente', (req, res) => {
 	const { id } = req.body;
 	const { nombre } = req.body;
@@ -588,6 +626,7 @@ app.post('/api/resetCliente', async (req, res) => {
 						);
 						return;
 					} else {
+						updateDate(id, 'fecha_cambio_password');
 						res.status(200).send(
 							JSON.stringify({
 								response: 'OK',
