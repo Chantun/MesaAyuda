@@ -27,7 +27,7 @@ console.log('contacto:' + query.contacto);
 console.log('ultima_fecha:' + query.fecha_ultimo_ingreso);
 console.log('mode:' + query.mode);
 
-document.getElementById('lastlogin').innerHTML =
+document.getElementById('lastlogin').innerHTML = // .innerHTML => Agrega un hijo a un componente
 	'<table class="user-info"><tr><td>Cliente:</td><td>' +
 	query.id +
 	'</td></tr><tr><td>Contacto:</td><td>' +

@@ -1,13 +1,15 @@
-const formE1 = document.querySelector('.form');
+const formE1 = document.querySelector('.form'); // document => accede al dom
+// .querySelector() agarrar el primer elemento .form
 
 /*---
     Intercepta el submit del formulario
     */
 
 formE1.addEventListener('submit', async (event) => {
-	event.preventDefault();
+	// addEventListener => Agrega eventos a los elementos
+	event.preventDefault(); // Que no haga nada si se envia vacio
 	const formData = new FormData(formE1);
-	const data = Object.fromEntries(formData);
+	const data = Object.fromEntries(formData); // Saca los datos del form
 	// console.log('Application Server: Revisa el valor del form:');
 	// console.log(data);
 
@@ -17,9 +19,9 @@ formE1.addEventListener('submit', async (event) => {
 
 	if (data.contacto == '' || data.password == '') {
 		console.log('debe indicar usuario');
-		document.getElementById('resultado1').style.color = 'RED';
+		document.getElementById('resultado1').style.color = 'RED'; // .getElementById() => retorna el elemento con ese id
 		document.getElementById('resultado1').style.textAlign = 'center';
-		document.getElementById('resultado1').textContent =
+		document.getElementById('resultado1').textContent = // asigna texto al elemento
 			'Debe informar usuario y password para  completar el acceso';
 		return;
 	}
@@ -47,18 +49,20 @@ formE1.addEventListener('submit', async (event) => {
         Genera objeto HTML a ser actualizado en el tag identificado como "app"
         */
 
-	const HTMLResponse = document.querySelector('#app');
-	const ul = document.createElement('ul');
+	// const HTMLResponse = document.querySelector('#app');
+	// const ul = document.createElement('ul'); // .createElement => crea un elmento del tipo especificado
 
-	const tpl = document.createDocumentFragment();
+	// const tpl = document.createDocumentFragment(); // Crea un fragmento de Documento en memoria
 
 	const systemURL = {
+		// Las distintas urls de la pagina
 		listarTicket: 'http://127.0.0.1:5500/HTML/listarTicket.html',
 		loginCliente: 'http://127.0.0.1:5500/HTML/loginClient.html',
 		addCliente: 'http://127.0.0.1:5500/HTML/addCliente.html',
 	};
 
 	const RESTAPI = {
+		// Los distintos endpoints a usar
 		loginCliente: 'http://localhost:8080/api/loginClienteEmail',
 		listarTicket: 'http://localhost:8080/api/listarTicket',
 		addCliente: 'http://localhost:8080/api/addCliente',
@@ -75,6 +79,7 @@ formE1.addEventListener('submit', async (event) => {
         Crea estructuras para acceder a data del cliente
         */
 		const login = {
+			// Lo recibe del formulario
 			contacto: data.contacto,
 			password: data.password,
 		};
@@ -84,14 +89,14 @@ formE1.addEventListener('submit', async (event) => {
 			headers: {
 				'Content-Type': 'application/json',
 			},
-			body: JSON.stringify(login),
+			body: JSON.stringify(login), // El json que le pasamos a postman
 		};
 
 		console.log('API REST:' + RESTAPI.loginCliente);
 		// console.log(login);
 		// console.log('login(' + JSON.stringify(login) + ')');
 		// console.log('options ' + JSON.stringify(options));
-		var API = RESTAPI.loginCliente;
+		var API = RESTAPI.loginCliente; // Strting con la url de la api que va a usar
 		var APIoptions = options;
 	}
 
@@ -134,17 +139,17 @@ formE1.addEventListener('submit', async (event) => {
 	utiliza URL y options definidos en los pasos anteriores
     */
 
-	fetch(`${API}`, APIoptions)
+	fetch(`${API}`, APIoptions) // Se conecta con la API, dependiendo del modo la url del API cambia
 		.then((res) => {
 			return res.json();
 		})
 		.then((users) => {
+			// users es la respuesta de la api (json -> objeto)
 			console.log(
-				'Datos en respuesta del application server=' + JSON.stringify(users)
+				'Datos en respuesta del application server=' + JSON.stringify(users) // JSON.stringify() pasa un json a string
 			);
-			// console.log('users.response=' + users.password);
 			if (users.response == 'OK') {
-				//<==Habilitar esto para dejar que el API REST verifique sin exponer la password
+				// verifica que la response sea OK
 				console.log('La password es correcta');
 				console.log(
 					'nombre(' +
@@ -178,7 +183,7 @@ formE1.addEventListener('submit', async (event) => {
 						'&mode=' +
 						MODE
 				);
-				window.location.href =
+				window.location.href = // Te redirecciona a la pagina de listar tickets
 					systemURL.listarTicket +
 					'?id=' +
 					users.id +
@@ -191,12 +196,19 @@ formE1.addEventListener('submit', async (event) => {
 					'&mode=' +
 					MODE;
 			} else if (users.message == 'Cliente invalido') {
-				const register = document.getElementById('register');
-				register.classList.remove('dissable');
+				// Si users.response != OK
+				const register = document.getElementById('register'); // Desbloquea el boton de registrar
+				register.classList.remove('dissable'); // Le quita la classe dissable al boton
 				register.setAttribute(
+					// Agrega un atributo a un elemento
+					// Le agrega la url al boton
 					'href',
-					'http://127.0.0.1:5500/HTML/addCliente.html'
+					systemURL.addCliente
 				);
+				document.getElementById('resultado1').style.color =
+					'RED'; /*--Fix hecho por  Germán Lombardi IS1-2025 */
+				document.getElementById('resultado1').textContent =
+					'Error de login, intente nuevamente'; /*--Fix hecho por  Germán Lombardi IS1-2025 */
 				console.log('Cliente invalido');
 			} else {
 				console.log('La password no es correcta');
