@@ -279,7 +279,6 @@ app.post('/api/loginClienteEmail', async (req, res) => {
 		);
 	}
 
-	console.log(items); // Muestra los usuarios obtenidos
 	const paswd = items[0].password;
 
 	if (password != paswd) {
@@ -298,7 +297,6 @@ app.post('/api/loginClienteEmail', async (req, res) => {
 			})
 		);
 	} else {
-		console.log(items);
 		updateDate(items[0].id, 'fecha_ultimo_ingreso'); // Actualiza la fecha de ingreso
 		const response = {
 			// Genera el objeto que sera retornado

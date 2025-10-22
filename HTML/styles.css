@@ -61,10 +61,6 @@ th:last-child {
 	font-weight: bold;
 }
 
-.user-info tr td:last-child {
-	text-align: end;
-}
-
 .container {
 	max-width: 600px;
 	border: 1px solid black;
