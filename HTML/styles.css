@@ -1,91 +1,137 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
 body {
-    font-family: sans-serif;
-    font-weight: 500;
-    background-color: #EFEFE0;
-    color: #3d3d3d;
+	font-family: sans-serif;
+	font-weight: 500;
+	background-color: #efefe0;
+	color: #3d3d3d;
+}
+
+.breadcrumb {
+	padding: 10px 16px;
+	list-style: none;
+	background-color: #efefe0;
 }
 
 img {
-    border-radius: 10px;
-    box-shadow: 3px 3px 8px #0008;
+	border-radius: 10px;
+	box-shadow: 3px 3px 8px #0008;
 }
 
-table {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    width: 100%;
+.login-table {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	max-width: 700px;
 }
 
-.form {
-    width: 500px;
-    border: 1px solid black; 
-    background-color: #FBF3D1;
-    border-radius: 10px;
+.ticket-table {
+	background-color: #89715a;
+	border-radius: 6px;
+}
+
+.ticket-table td {
+	padding: 4px 8px;
+	background-color: #ffffe3;
+	white-space: nowrap;
+}
+
+.ticket-table th {
+	background-color: #b6ae9f;
+}
+
+th:first-child {
+	border-radius: 6px 0 0 0;
+}
+th:last-child {
+	border-radius: 0 6px 0 0;
+}
+.ticket-table tr:last-child td:last-child {
+	border-radius: 0 0 6px 0;
+}
+.ticket-table tr:last-child td:first-child {
+	border-radius: 0 0 0 6px;
+}
+
+.user-info {
+	border-spacing: 20px 6px;
+}
+
+.user-info tr td:first-child {
+	font-weight: bold;
+}
+
+.user-info tr td:last-child {
+	text-align: end;
+}
+
+.container {
+	max-width: 600px;
+	border: 1px solid black;
+	background-color: #fbf3d1;
+	border-radius: 10px;
+	padding: 10px 25px;
+	margin: auto;
 }
 
 a {
-    font-weight: 600;
-    color: #2448c0;
+	font-weight: 600;
+	color: #2448c0;
 }
 
 .txt {
-    font-size: 1rem;
-    background-color: #FBF3D1;
-    border: none;
-    border-bottom: 1px solid #B6AE9F;
-    height: 20px;
-    width: 80%;
-    padding-left: 8px;
-    transition: all .3s;
-    border-radius: 4px 4px 0 0;
-    min-width: 400px
+	font-size: 1rem;
+	background-color: #fbf3d1;
+	border: none;
+	border-bottom: 1px solid #b6ae9f;
+	height: 20px;
+	width: 80%;
+	padding-left: 8px;
+	transition: all 0.3s;
+	border-radius: 4px 4px 0 0;
+	min-width: 400px;
 }
 
-
-
 .txt:hover {
-    background-color: #0002;
+	background-color: #0002;
 }
 
 .txt:focus {
-    background-color: #0002;
-    outline: none; 
+	background-color: #0002;
+	outline: none;
 }
 
 .txt::placeholder {
-    color: #8d8d8d;
+	color: #8d8d8d;
 }
 
 button {
-    min-width: 50px;
-    /* height: 30px; */
-    padding: 9px;
-    font-size: 1rem;
-    font-weight: 600;
-    color: #44382b;
-    background-color: #C2A68C;
-    border: 1px solid #968e7f; 
-    border-radius: 7px;
-    box-shadow: 3px 3px 8px #0008;
-    white-space:nowrap;
+	min-width: 50px;
+	/* height: 30px; */
+	padding: 9px;
+	font-size: 1rem;
+	font-weight: 600;
+	color: #44382b;
+	background-color: #c2a68c;
+	border: 1px solid #968e7f;
+	border-radius: 7px;
+	box-shadow: 3px 3px 8px #0008;
+	white-space: nowrap;
 }
 
 button:hover {
-    background-color: #977e66;
+	background-color: #977e66;
 }
 
 button:active {
-    background-color: #89715a;
+	background-color: #89715a;
 }
 
 .terms {
-    margin: auto;
-    text-align: center;
+	margin: auto;
+	text-align: center;
 }
- 
-.form-label{
-    margin-left: 44px;
+
+.form-label {
+	margin-left: 44px;
 }

@@ -1,123 +1,148 @@
 <!DOCTYPE html>
 <!--------------------------------------------------------------------------------------------------------------------------->
-<!-- loginClient.html                                                                                                      -->                                                                                                      
-<!-- Taller de maquetado - aplicación ejemplo Mesa de Ayuda                                                                -->                                                                                                      
-<!-- Dr. Pedro E. Colla                                                                                                    -->                                                                                                      
-<!-- UADER - Ingeniería de Software I                                                                                      -->                                                                                                      
+<!-- loginClient.html                                                                                                      -->
+<!-- Taller de maquetado - aplicación ejemplo Mesa de Ayuda                                                                -->
+<!-- Dr. Pedro E. Colla                                                                                                    -->
+<!-- UADER - Ingeniería de Software I                                                                                      -->
 <!--------------------------------------------------------------------------------------------------------------------------->
 
-<html Lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width,initial-scale=1.0">
-        <link rel="stylesheet" href="styles.css">
-        <title>POST Form Data as JSON with JavaScript Fetch API</title>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+		<link rel="stylesheet" href="styles.css" />
+		<title>POST Form Data as JSON with JavaScript Fetch API</title>
 
-        <style type="text/css"> 
-  
-            label { 
-              font-size: 18px;
-            }
-            input { 
-              margin: 7px; 
-              padding: 2px 
-            }
+		<style type="text/css">
+			label {
+				font-size: 18px;
+			}
+			input {
+				margin: 7px;
+				padding: 2px;
+			}
+		</style>
+	</head>
+	<body>
+		<!-- Area de encabezados fijos -->
+		<!-- close the browser and start it with the --disable-web-security and --user-data-dir flags-->
+		<center>
+			<img
+				src="HelpDeskGirl.png"
+				alt="Nuestra imagen corporativa"
+				style="width: 200px; height: 150px"
+			/>
+		</center>
+		<center>
+			<h1>Sistema de Mesa de Ayuda</h1>
+			<h2>Registar usuario</h2>
+		</center>
 
-        </style> 
-    </head>
-<body>
-    <!-- Area de encabezados fijos -->
-    <!-- close the browser and start it with the --disable-web-security and --user-data-dir flags-->
-    <center><img src="HelpDeskGirl.png" alt="Nuestra imagen corporativa" style="width:200px;height:150px;"></center>
-    <center>
-        <h1>Sistema de Mesa de Ayuda</h1>
-        <h2>Registar usuario</h2>
-    </center>
+		<!-- Formulario para enviar los datos -->
+		<center>
+			<form class="form container" method="GET" width="100px" border="1">
+				<!-- <center><h4>Ingrese su identificación de usuario y password</h4></center> -->
+				<br />
+				<table class="login-table">
+					<tr style="height: 10px">
+						<td>
+							<label for="cliForm" class="form-label"
+								>Ingrese su correo electrónico:</label
+							>
+						</td>
+					</tr>
+					<tr style="height: 10px">
+						<td>
+							<center>
+								<input
+									class="txt"
+									name="contacto"
+									type="text"
+									placeholder="Correo electrónico"
+								/>
+							</center>
+							<br />
+						</td>
+					</tr>
+					<tr style="height: 10px">
+						<td>
+							<label for="passForm" class="form-label"
+								>Ingrese su contraseña</label
+							>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<center>
+								<input
+									class="txt"
+									name="password"
+									type="password"
+									placeholder="Contraseña"
+								/>
+							</center>
+							<br />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label for="passForm" class="form-label">Ingrese su nombre</label>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<center>
+								<input
+									class="txt"
+									name="nombre"
+									type="text"
+									placeholder="Ingrese su nombre"
+								/>
+							</center>
+							<br />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<span id="resultado1"></span>
+						</td>
+					</tr>
 
-    <!-- Formulario para enviar los datos -->    
-    <center>
-    <form class="form" method="GET" width="100px" border="1">
-    <!-- <center><h4>Ingrese su identificación de usuario y password</h4></center> -->
-        <br>
-        <table>
-            <tr style="height:10px;">
-                <td>
-                    <label for="cliForm" class="form-label">Ingrese su correo electrónico:</label>
-                </td> 
-            </tr>
-            <tr style="height:10px;">
-                <td>
-                    <center>
-                    <input class="txt" name="contacto" type="text" placeholder="Correo electrónico">
-                    </center>
-                    <br>
-                </td>
-            </tr>
-            <tr style="height:10px;">
-                <td>
-                    <label for="passForm" class="form-label">Ingrese su contraseña</label>
-                </td>  
-            </tr>
-            <tr>   
-                <td>
-                    <center>
-                    <input class="txt" name="password" type="password" placeholder="Contraseña">
-                    </center>
-                    <br>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label for="passForm" class="form-label">Ingrese su nombre</label>
-                </td>        
-            </tr>
-            <tr>    
-                <td>
-                    <center>
-                    <input class="txt" name="nombre" type="text" placeholder="Ingrese su nombre">
-                    </center>
-                    <br>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <span id="resultado1"></span>
-                </td>
-            </tr>
-            
-            <tr>
-                <td>
-                    <center>
-                        <button type="submit">< Registrar</button><br>
-                    </center>
-                    <br>
-                </td>
-            </tr>
-            <tr>
-                <td class="terms">
-                    <input name="termscondition" type="checkbox">
-                    <span>Acepto los términos y condiciones del registro en el sistema (S.E.u.O)</span>
-                    
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <span id="resultado2"></span>
-                </td>
-            </tr>
-        </table>
-    </form>
-    <p>¡Todo lo que Ud. diga o haga en éste sistema podrá ser usado en su contra!</p>
-    </center>
+					<tr>
+						<td>
+							<center><button type="submit">< Registrar</button><br /></center>
+							<br />
+						</td>
+					</tr>
+					<tr>
+						<td class="terms">
+							<input name="termscondition" type="checkbox" />
+							<span
+								>Acepto los términos y condiciones del registro en el sistema
+								(S.E.u.O)</span
+							>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<span id="resultado2"></span>
+						</td>
+					</tr>
+				</table>
+			</form>
+			<p>
+				¡Todo lo que Ud. diga o haga en éste sistema podrá ser usado en su
+				contra!
+			</p>
+		</center>
 
-    <!-- Area para crear contenido dinámico -->
-    
-    <div id="app"></div>
-    <ul id="listado"></ul>
-    
-    <!-- Script a ser ejecutado --> 
-    <script src="addCliente.js" type="module"></script>
-    
+		<!-- Area para crear contenido dinámico -->
 
-</body>
+		<div id="app"></div>
+		<ul id="listado"></ul>
+
+		<!-- Script a ser ejecutado -->
+		<script src="addCliente.js" type="module"></script>
+	</body>
+</html>
