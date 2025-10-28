@@ -133,11 +133,11 @@ formE1.addEventListener('submit', async (event) => {
 				setTimeout(() => {
 					window.location.href = systemURL.loginCliente;
 				}, 2000);
-			} else if (users.message == 'Usuario inexistente') {
+			} else if (users.message == 'Usuario invalido') {
 				console.log('La password no ha sido actualizada correctamente');
 				document.getElementById('resultado1').style.color = 'RED';
 				document.getElementById('resultado1').textContent =
-					'Usuario inexistente';
+					'Usuario invalido';
 			} else {
 				// console.log(users);
 				console.log('La password no ha sido actualizada correctamente');
