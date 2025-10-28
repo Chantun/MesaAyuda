@@ -315,7 +315,7 @@ app.post('/api/loginClienteEmail', async (req, res) => {
   Esta API permite acceder a un cliente dado su id
 */
 
-app.get('/api/getCliente/:id', (req, res) => {
+app.post('/api/getCliente/:id', (req, res) => {
 	const { id } = req.params; // Saca el id del :id de la url
 	console.log('getCliente: id(' + id + ')');
 
