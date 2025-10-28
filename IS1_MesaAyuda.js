@@ -407,7 +407,7 @@ app.post('/api/addCliente', (req, res) => {
 					.send({ response: 'ERROR', message: 'Cliente ya existe' });
 				return;
 			} else {
-				// Si existe el usuario
+				// Si no existe el usuario
 				var hoy = new Date();
 				var dd = String(hoy.getDate()).padStart(2, '0');
 				var mm = String(hoy.getMonth() + 1).padStart(2, '0'); //January is 0!
@@ -608,6 +608,7 @@ app.post('/api/resetCliente', async (req, res) => {
 			message: 'Usuario invalido',
 		});
 	}
+	
 	const id = user[0].id;
 
 	var params = {
