@@ -269,8 +269,8 @@ app.post('/api/loginClienteEmail', async (req, res) => {
 	}
 
 	const items = await scanDb(contacto); // Retorna un array con los usuarios obtenidos
-
-	if (items.length != 1) {
+	console.log(items);
+	if (items.length == 0) {
 		// Verifica que existan usuarios con ese correo
 		res.status(400).send(
 			JSON.stringify({
@@ -339,7 +339,7 @@ app.post('/api/getCliente/:id', (req, res) => {
 			);
 		} else {
 			// Existe el usuario
-			if (Object.keys(data).length != 0) {
+			if (Object.keys(data).length != 1) {
 				res
 					.status(200)
 					.send(
@@ -602,13 +602,13 @@ app.post('/api/resetCliente', async (req, res) => {
 	}
 
 	const user = await scanDb(contacto);
-	if (user.length != 1) {
+	if (user.length != 0) {
 		res.status(404).send({
 			response: 'ERROR',
 			message: 'Usuario invalido',
 		});
 	}
-	
+
 	const id = user[0].id;
 
 	var params = {
