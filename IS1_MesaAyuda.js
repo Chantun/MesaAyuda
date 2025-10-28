@@ -777,7 +777,8 @@ app.post('/api/getTicket', (req, res) => {
 				})
 			);
 		} else {
-			if (Object.keys(data).length == 0) { //Ticket no existe
+			if (Object.keys(data).length == 0) {
+				//Ticket no existe
 				res.status(400).send({ response: 'ERROR', message: 'ticket invalido' });
 			} else {
 				res.status(200).send(JSON.stringify({ response: 'OK', data: data }));

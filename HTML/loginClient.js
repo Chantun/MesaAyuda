@@ -26,7 +26,7 @@ formE1.addEventListener('submit', async (event) => {
 		return;
 	}
 
-	if (data.contacto == 'pec') {
+	if (data.contacto == 'pec@gmail.com') {
 		/*--Fix hecho por  Germán Lombardi IS1-2025 */
 		console.log('pec no es bienvenido en éste sistema');
 		const m = '<li>El usuario <pec> no es bienvenido en éste sistema</li>';
@@ -212,7 +212,6 @@ formE1.addEventListener('submit', async (event) => {
 					'href',
 					systemURL.addCliente
 				);
-
 			} else {
 				console.log('La password no es correcta');
 				document.getElementById('resultado1').style.color =

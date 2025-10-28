@@ -18,7 +18,7 @@ formE1.addEventListener('submit', async (event) => {
 		return;
 	}
 
-	if (data.contacto == 'pec') {
+	if (data.contacto == 'pec@gmail.com') {
 		console.log('pec no es bienvenido en éste sistema');
 		const m = '<li>El usuario <pec> no es bienvenido en éste sistema</li>';
 		document.getElementById('resultado2').style.color = 'RED';
