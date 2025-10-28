@@ -1,10 +1,10 @@
-const formE1 = document.querySelector('.form');
+const formE1 = document.querySelector('.form'); //selecciona el primer formulario con la clase form
 
 formE1.addEventListener('submit', async (event) => {
-	event.preventDefault();
-	const formData = new FormData(formE1);
+	event.preventDefault(); //Evita que la página se recargue al enviar el formulario.
+	const formData = new FormData(formE1); //FormData recoge todos los campos del formulario y devuelve algo parecido a una lista de pares clave-valor
 	const data = {
-		...Object.fromEntries(formData),
+		...Object.fromEntries(formData), //Convierte FormData a un objeto normal
 	};
 	// console.log('Application Server: Revisa el valor del form:');
 	// console.log(data);

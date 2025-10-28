@@ -21,13 +21,15 @@ Extrae del URL el id de cliente ya validado, su nombre y la última fecha de log
 
 console.log('Comienza listarTicket.js');
 
-var query = getQueryParams(document.location.search);
+var query = getQueryParams(document.location.search); //contiene la parte de la URL después del ?
+//getQueryParams convierte esos parámetros en un objeto JavaScript
 console.log('id:' + query.id);
 console.log('contacto:' + query.contacto);
 console.log('ultima_fecha:' + query.fecha_ultimo_ingreso);
 console.log('mode:' + query.mode);
 
 document.getElementById('lastlogin').innerHTML = // .innerHTML => Agrega un hijo a un componente
+	//Actualiza la página mostrando esos datos dentro de un elemento HTML (lastlogin)
 	'<table class="user-info"><tr><td>Cliente:</td><td>' +
 	query.id +
 	'</td></tr><tr><td>Contacto:</td><td>' +
@@ -64,7 +66,7 @@ var ticket = {
 var options = {
 	method: 'GET',
 };
-var APIREST_URL = '';
+var APIREST_URL = ''; //inicializa la variable donde se asignará la URL del endpoint de tickets
 console.log('transferred mode:' + query.mode);
 
 switch (query.mode) {

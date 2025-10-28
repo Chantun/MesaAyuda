@@ -185,6 +185,7 @@ app.post('/api/loginCliente', (req, res) => {
 			},
 		};
 		docClient.get(params, function (err, data) {
+			// .get => obtener datos
 			if (err) {
 				res.status(400).send(
 					JSON.stringify({
@@ -435,6 +436,7 @@ app.post('/api/addCliente', (req, res) => {
 				};
 
 				docClient.put(paramsPut, function (err, data) {
+					// .put => enviar cosas al db
 					// Intenta enviar el objeto a la db
 					if (err) {
 						// Error con la db
@@ -691,8 +693,8 @@ Función para realizar el SCAN de un DB de cliente usando contacto como clave pa
 */
 async function scanDbTicket(clienteID) {
 	// Funcion que retorna los tickets de un usuario segun su id
-	var docClient = new AWS.DynamoDB.DocumentClient();
-	const scanKey = clienteID;
+	var docClient = new AWS.DynamoDB.DocumentClient(); //Crea una instancia del cliente de DynamoDB para poder consultar la base
+	const scanKey = clienteID; //guarda el parámetro recibido en una variable local, que se usará como valor del filtro.
 	const paramsScan = {
 		// Parametros del scan
 		TableName: 'ticket', // Usa la table ticket
@@ -705,12 +707,12 @@ async function scanDbTicket(clienteID) {
 		ExpressionAttributeValues: { ':clienteID': scanKey },
 	};
 	var objectPromise = await docClient // Espera la respuesta del db
-		.scan(paramsScan)
-		.promise()
+		.scan(paramsScan) //inicia la busqueda
+		.promise() //convierte la llamada en una promesa
 		.then((data) => {
-			return data.Items;
+			return data.Items; //extrae el array Items que contiene los tickets encontrados
 		});
-	return objectPromise;
+	return objectPromise; //Devuelve el array con los tickets encontrados para ese clienteID
 }
 /*----------
   listarTicket
@@ -724,7 +726,7 @@ app.post('/api/listarTicket', (req, res) => {
 		res
 			.status(400)
 			.send({ response: 'ERROR', message: 'ID cliente  no informada' });
-		return;
+		return; //detiene la ejecución del endpoint
 	}
 
 	scanDbTicket(ID).then((resultDb) => {
@@ -775,7 +777,7 @@ app.post('/api/getTicket', (req, res) => {
 				})
 			);
 		} else {
-			if (Object.keys(data).length == 0) {
+			if (Object.keys(data).length == 0) { //Ticket no existe
 				res.status(400).send({ response: 'ERROR', message: 'ticket invalido' });
 			} else {
 				res.status(200).send(JSON.stringify({ response: 'OK', data: data }));
@@ -815,7 +817,7 @@ app.post('/api/addTicket', (req, res) => {
 		// Parametros de AWS
 		TableName: 'ticket',
 		Item: newTicket,
-		ConditionExpression: 'attribute_not_exists(id)',
+		ConditionExpression: 'attribute_not_exists(id)', // asegura que no exista ya un ticket con ese mismo ID aunque es dificil porque esta en random
 	};
 
 	docClient.put(paramsPut, function (err, data) {
@@ -895,7 +897,7 @@ app.post('/api/updateTicket', (req, res) => {
 
 	docClient.get(params, function (err, data) {
 		// .get => obtener datos
-		// Llamada a la db para obetner el ticket
+		// Llamada a la db para obtener el ticket
 		if (err) {
 			// Error de la db
 			res.status(400).send(

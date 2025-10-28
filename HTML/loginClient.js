@@ -8,8 +8,8 @@ const formE1 = document.querySelector('.form'); // document => accede al dom
 formE1.addEventListener('submit', async (event) => {
 	// addEventListener => Agrega eventos a los elementos
 	event.preventDefault(); // Que no haga nada si se envia vacio
-	const formData = new FormData(formE1);
-	const data = Object.fromEntries(formData); // Saca los datos del form
+	const formData = new FormData(formE1); //es un objeto que recoge todos los campos del formulario
+	const data = Object.fromEntries(formData); // Saca los datos del form, transforma una lista de pares clave-valor en un objeto JavaScript
 	// console.log('Application Server: Revisa el valor del form:');
 	// console.log(data);
 
@@ -87,9 +87,9 @@ formE1.addEventListener('submit', async (event) => {
 		const options = {
 			method: 'POST',
 			headers: {
-				'Content-Type': 'application/json',
+				'Content-Type': 'application/json', //Indica que se enviarán datos en formato JSON
 			},
-			body: JSON.stringify(login), // El json que le pasamos a postman
+			body: JSON.stringify(login), // El json que le pasamos a postman (Convierte el objeto login en un string JSON)
 		};
 
 		console.log('API REST:' + RESTAPI.loginCliente);
@@ -141,7 +141,7 @@ formE1.addEventListener('submit', async (event) => {
 
 	fetch(`${API}`, APIoptions) // Se conecta con la API, dependiendo del modo la url del API cambia
 		.then((res) => {
-			return res.json();
+			return res.json(); //transforma la respuesta del servidor (que viene en formato JSON) a un objeto
 		})
 		.then((users) => {
 			// users es la respuesta de la api (json -> objeto)
@@ -197,6 +197,13 @@ formE1.addEventListener('submit', async (event) => {
 					MODE;
 			} else if (users.message == 'Cliente invalido') {
 				// Si users.response != OK
+
+				document.getElementById('resultado1').style.color =
+					'RED'; /*--Fix hecho por  Germán Lombardi IS1-2025 */
+				document.getElementById('resultado1').textContent =
+					'Error de login, intente nuevamente'; /*--Fix hecho por  Germán Lombardi IS1-2025 */
+				console.log('Cliente invalido');
+
 				const register = document.getElementById('register'); // Desbloquea el boton de registrar
 				register.classList.remove('dissable'); // Le quita la classe dissable al boton
 				register.setAttribute(
@@ -205,11 +212,7 @@ formE1.addEventListener('submit', async (event) => {
 					'href',
 					systemURL.addCliente
 				);
-				document.getElementById('resultado1').style.color =
-					'RED'; /*--Fix hecho por  Germán Lombardi IS1-2025 */
-				document.getElementById('resultado1').textContent =
-					'Error de login, intente nuevamente'; /*--Fix hecho por  Germán Lombardi IS1-2025 */
-				console.log('Cliente invalido');
+
 			} else {
 				console.log('La password no es correcta');
 				document.getElementById('resultado1').style.color =
