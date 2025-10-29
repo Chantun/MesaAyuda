@@ -141,7 +141,7 @@ formE1.addEventListener('submit', async (event) => {
 
 	fetch(`${API}`, APIoptions) // Se conecta con la API, dependiendo del modo la url del API cambia
 		.then((res) => {
-			return res.json(); //transforma la respuesta del servidor (que viene en formato JSON) a un objeto
+			return res.json();
 		})
 		.then((users) => {
 			// users es la respuesta de la api (json -> objeto)
@@ -217,7 +217,13 @@ formE1.addEventListener('submit', async (event) => {
 				document.getElementById('resultado1').style.color =
 					'RED'; /*--Fix hecho por  Germán Lombardi IS1-2025 */
 				document.getElementById('resultado1').textContent =
-					'Error de login, intente nuevamente'; /*--Fix hecho por  Germán Lombardi IS1-2025 */
+					'Error de login, intente nuevamente.'; /*--Fix hecho por  Germán Lombardi IS1-2025 */
 			}
+		})
+		.catch((err) => {
+			console.error('Error del server:', err);
+			document.getElementById('resultado1').style.color = 'RED';
+			document.getElementById('resultado1').textContent =
+				'Error, el servidor de aplicaciones no responde.';
 		});
 });
