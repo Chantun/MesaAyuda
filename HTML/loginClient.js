@@ -141,7 +141,7 @@ formE1.addEventListener('submit', async (event) => {
 
 	fetch(`${API}`, APIoptions) // Se conecta con la API, dependiendo del modo la url del API cambia
 		.then((res) => {
-			return res.json();
+			return res.json(); //transforma JSON  objeto
 		})
 		.then((users) => {
 			// users es la respuesta de la api (json -> objeto)
