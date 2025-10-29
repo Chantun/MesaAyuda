@@ -159,5 +159,11 @@ formE1.addEventListener('submit', async (event) => {
 				document.getElementById('resultado1').textContent =
 					'La registración no se pudo completar';
 			}
+		})
+		.catch((err) => {
+			console.error('Error del server:', err);
+			document.getElementById('resultado1').style.color = 'RED';
+			document.getElementById('resultado1').textContent =
+				'Error, el servidor de aplicaciones no responde.';
 		});
 });
