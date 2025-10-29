@@ -36,6 +36,10 @@ img {
 	white-space: nowrap;
 }
 
+.ticket-table tr td:nth-child(3) {
+	white-space: wrap;
+}
+
 .ticket-table th {
 	background-color: #b6ae9f;
 }
