@@ -339,7 +339,7 @@ app.post('/api/getCliente/:id', (req, res) => {
 			);
 		} else {
 			// Existe el usuario
-			if (Object.keys(data).length != 1) {
+			if (Object.keys(data).length != 0) {
 				res
 					.status(200)
 					.send(
@@ -602,7 +602,7 @@ app.post('/api/resetCliente', async (req, res) => {
 	}
 
 	const user = await scanDb(contacto);
-	if (user.length != 0) {
+	if (user.length == 0) {
 		res.status(404).send({
 			response: 'ERROR',
 			message: 'Usuario invalido',
